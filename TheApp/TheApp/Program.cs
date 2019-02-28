@@ -24,7 +24,7 @@ namespace TheApp
                 {
                     if (p.Orientation == "H")
                     {
-                        resultSet.SlideShow.Add(new InputOutput.Slide { Picture1 = p });
+                        resultSet.SlideShow.Add(new InputOutput.Slide (p));
                     }
                 });
 
