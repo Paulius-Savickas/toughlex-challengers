@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace TheApp
 {
@@ -40,7 +41,13 @@ namespace TheApp
 
             public override string ToString()
             {
-                return $"{Picture1.Id}";
+                var result = string.Empty;
+                if (Picture1.Orientation == "H")
+                {
+                    return Picture1.Id.ToString();
+                }
+
+                return $"{Picture1.Id} {Picture2.Id}";
             }
         }
 
