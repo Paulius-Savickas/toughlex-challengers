@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace TheApp
@@ -27,6 +27,36 @@ namespace TheApp
                 }
 
                 return dataSet;
+            }
+        }
+
+        public class CoordinatesSet
+        {
+            public int r1, c1, r2, c2;
+
+            public CoordinatesSet(int r1, int c1, int r2, int c2)
+            {
+                this.r1 = r1;
+                this.c1 = c1;
+                this.r2 = r2;
+                this.c2 = c2;
+            }
+        }
+
+        public class ResultSet
+        {
+            public List<CoordinatesSet> Results;
+        }
+
+        public static void OutputData(string filename, ResultSet results)
+        {
+            using (var outputFile = new StreamWriter(filename))
+            {
+                outputFile.WriteLine(results.Results.Count);
+                foreach (var coordinatesSet in results.Results)
+                {
+                    outputFile.WriteLine($"{coordinatesSet.r1} {coordinatesSet.c1} {coordinatesSet.r2} {coordinatesSet.c2}");
+                }
             }
         }
 
