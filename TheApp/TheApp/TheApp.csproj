@@ -49,19 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="a_example.in">
+    <None Include="Data\a_example.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="b_lovely_landscapes.in">
+    <None Include="Data\b_lovely_landscapes.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="c_memorable_moments.in">
+    <None Include="Data\c_memorable_moments.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="d_pet_pictures.in">
+    <None Include="Data\d_pet_pictures.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="e_shiny_selfies.in">
+    <None Include="Data\e_shiny_selfies.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

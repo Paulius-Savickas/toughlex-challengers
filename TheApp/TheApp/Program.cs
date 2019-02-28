@@ -6,7 +6,7 @@ namespace TheApp
     {
         static void Main(string[] args)
         {
-            var dataSet = InputOutput.ReadData("c_memorable_moments.in");
+            var dataSet = InputOutput.ReadData("data/c_memorable_moments.in");
             var resultSet = new InputOutput.ResultSet();
             dataSet.Pictures.ForEach(p =>
             {
