@@ -24,24 +24,28 @@ namespace TheApp
                 var dataSet = InputOutput.ReadData($"data/{fileName}");
                 var resultSet = new InputOutput.ResultSet();
 
-                dataSet.Pictures = new LinkedList<Picture>(dataSet.Pictures.Where(p => p.Orientation == "H"));
-                var firstPicture = dataSet.Pictures.FirstOrDefault();
-                resultSet.SlideShow.Add(new InputOutput.Slide(firstPicture));
-                dataSet.Pictures.Remove(firstPicture);
+                var horizontalSlidesList = dataSet.Pictures.Where(p => p.Orientation == "H").ToList().Select(x => new InputOutput.Slide(x)).ToList();
+                var verticalSlidesList = VerticalSlides.GetVSlidesList(dataSet.Pictures.ToArray().ToList());
 
-                while (dataSet.Pictures.Count > 0)
+                horizontalSlidesList.AddRange(verticalSlidesList);
+                var allSlides = horizontalSlidesList;
+
+                var firstSlide = allSlides.FirstOrDefault();
+                allSlides.Remove(firstSlide);
+                resultSet.SlideShow.Add(firstSlide);
+
+                while (allSlides.Count > 0)
                 {
-                    Picture bestMatch = null;
+                    InputOutput.Slide bestMatch = null;
                     int bestPoints = -1;
                     var lastPicture = resultSet.SlideShow.Last();
-                    foreach (var dataSetPicture in dataSet.Pictures)
+                    foreach (var slide in allSlides)
                     {
-                        var slide = new InputOutput.Slide(dataSetPicture);
                         var score = lastPicture.GetScore(slide);
                         if (score > bestPoints)
                         {
                             bestPoints = score;
-                            bestMatch = dataSetPicture;
+                            bestMatch = slide;
                         }
 
                         if (bestPoints > 5)
@@ -52,8 +56,8 @@ namespace TheApp
 
                     Console.WriteLine("Pictures Left: " + dataSet.Pictures.Count.ToString() + " Best score: " + bestPoints);
 
-                    resultSet.SlideShow.Add(new InputOutput.Slide(bestMatch));
-                    dataSet.Pictures.Remove(bestMatch);
+                    resultSet.SlideShow.Add(bestMatch);
+                    allSlides.Remove(bestMatch);
                 }
 
                 InputOutput.OutputData($"{fileName}-result.out", resultSet);
