@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.ExceptionServices;
 
 namespace TheApp
 {
@@ -36,18 +39,36 @@ namespace TheApp
 
         public class Slide
         {
-            public Picture Picture1;
-            public Picture Picture2;
+            public Picture Pic1;
+            public Picture Pic2;
+            public HashSet<string> Tags;
+            public bool Used;
+
+            public Slide(Picture pic1)
+            {
+               Tags = new HashSet<string>();
+               Tags.UnionWith(pic1.Tags);
+            }
 
             public override string ToString()
             {
                 var result = string.Empty;
-                if (Picture1.Orientation == "H")
+                if (Pic1.Orientation == "H")
                 {
-                    return Picture1.Id.ToString();
+
+                    return Pic1.Id.ToString();
                 }
 
-                return $"{Picture1.Id} {Picture2.Id}";
+                return $"{Pic1.Id} {Pic2.Id}";
+            }
+
+            public int GetScore(Slide other)
+            {
+                var intersection = this.Tags.Intersect(other.Tags);
+                var left = this.Tags.Count - intersection.Count();
+                var right = other.Tags.Count - intersection.Count();
+                return Math.Min(Math.Min(intersection.Count(), left), right);
+
             }
         }
 
