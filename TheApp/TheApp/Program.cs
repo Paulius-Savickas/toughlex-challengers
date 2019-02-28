@@ -9,11 +9,11 @@ namespace TheApp
     {
         public static List<string> DataFilesList = new List<string>
         {
-//            "a_example.in",
-//            "b_lovely_landscapes.in",
-//            "c_memorable_moments.in",
+            //"a_example.in",
+            //"b_lovely_landscapes.in",
+            //"c_memorable_moments.in",
             "d_pet_pictures.in",
-//            "e_shiny_selfies.in"
+            //"e_shiny_selfies.in"
         };
 
         static void Main(string[] args)
@@ -54,7 +54,7 @@ namespace TheApp
                         }
                     }
 
-                    Console.WriteLine("Pictures Left: " + dataSet.Pictures.Count.ToString() + " Best score: " + bestPoints);
+                    Console.WriteLine("Pictures Left: " + allSlides.Count().ToString() + " Best score: " + bestPoints);
 
                     resultSet.SlideShow.Add(bestMatch);
                     allSlides.Remove(bestMatch);
