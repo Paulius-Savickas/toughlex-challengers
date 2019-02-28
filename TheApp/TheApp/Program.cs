@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace TheApp
@@ -8,9 +10,9 @@ namespace TheApp
         public static List<string> DataFilesList = new List<string>
         {
 //            "a_example.in",
-            "b_lovely_landscapes.in",
+//            "b_lovely_landscapes.in",
 //            "c_memorable_moments.in",
-//            "d_pet_pictures.in",
+            "d_pet_pictures.in",
 //            "e_shiny_selfies.in"
         };
 
@@ -22,7 +24,7 @@ namespace TheApp
                 var dataSet = InputOutput.ReadData($"data/{fileName}");
                 var resultSet = new InputOutput.ResultSet();
 
-                dataSet.Pictures = dataSet.Pictures.Where(p => p.Orientation == "H").ToList();
+                dataSet.Pictures = new LinkedList<Picture>(dataSet.Pictures.Where(p => p.Orientation == "H"));
                 var firstPicture = dataSet.Pictures.FirstOrDefault();
                 resultSet.SlideShow.Add(new InputOutput.Slide(firstPicture));
                 dataSet.Pictures.Remove(firstPicture);
@@ -41,7 +43,14 @@ namespace TheApp
                             bestPoints = score;
                             bestMatch = dataSetPicture;
                         }
+
+                        if (bestPoints > 5)
+                        {
+                            break;
+                        }
                     }
+
+                    Console.WriteLine("Pictures Left: " + dataSet.Pictures.Count.ToString() + " Best score: " + bestPoints);
 
                     resultSet.SlideShow.Add(new InputOutput.Slide(bestMatch));
                     dataSet.Pictures.Remove(bestMatch);

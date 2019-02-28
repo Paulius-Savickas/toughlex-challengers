@@ -31,7 +31,7 @@ namespace TheApp
                     picture.Orientation = info[0];
                     picture.TagNumber = int.Parse(info[1]);
                     picture.Tags = new HashSet<string>(info.Skip(2).ToArray());
-                    dataSet.Pictures.Add(picture);
+                    dataSet.Pictures.AddLast(picture);
                 }
 
                 return dataSet;
@@ -67,9 +67,10 @@ namespace TheApp
             public int GetScore(Slide other)
             {
                 var intersection = this.Tags.Intersect(other.Tags);
-                var left = this.Tags.Count - intersection.Count();
-                var right = other.Tags.Count - intersection.Count();
-                return Math.Min(Math.Min(intersection.Count(), left), right);
+                var count = intersection.Count();
+                var left = this.Tags.Count - count;
+                var right = other.Tags.Count - count;
+                return Math.Min(Math.Min(count, left), right);
 
             }
         }

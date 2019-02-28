@@ -15,9 +15,9 @@ namespace TheApp
     {
         public DataSet()
         {
-            Pictures = new List<Picture>();
+            Pictures = new LinkedList<Picture>();
         }
         public int RowNumber;
-        public List<Picture> Pictures;
+        public LinkedList<Picture> Pictures;
     }
 }
