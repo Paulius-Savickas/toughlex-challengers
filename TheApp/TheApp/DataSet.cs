@@ -8,15 +8,16 @@ namespace TheApp
         public string Orientation;
         public int TagNumber;
         public HashSet<string> Tags;
+        public bool Used;
     }
 
     public class DataSet
     {
         public DataSet()
         {
-            Pictures = new List<Picture>();
+            Pictures = new LinkedList<Picture>();
         }
         public int RowNumber;
-        public List<Picture> Pictures;
+        public LinkedList<Picture> Pictures;
     }
 }
