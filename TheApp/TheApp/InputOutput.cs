@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace TheApp
 {
@@ -12,18 +13,19 @@ namespace TheApp
             using (var sr = new StreamReader(filename))
             {
                 var line = sr.ReadLine();
-                var bits = line.Split(' ');
-                dataSet.R = int.Parse(bits[0]);
-                dataSet.C = int.Parse(bits[1]);
-                dataSet.L = int.Parse(bits[2]);
-                dataSet.H = int.Parse(bits[3]);
+                dataSet.RowNumber = int.Parse(line.Trim());
 
-                dataSet.Data = new string[dataSet.R];
 
-                for (var i = 0; i < dataSet.R; i++)
+                for (var i = 0; i < dataSet.RowNumber; i++)
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    dataSet.Data[i] = sr.ReadLine().Trim();
+
+                    var info = sr.ReadLine().Trim().Split(' ');
+                    var picture = new Picture();
+                    picture.Orientation = info[0];
+                    picture.TagNumber = int.Parse(info[1]);
+                    picture.Tags = new HashSet<string>(info.Skip(2).ToArray());
+                    dataSet.Pictures.Add(picture);
                 }
 
                 return dataSet;

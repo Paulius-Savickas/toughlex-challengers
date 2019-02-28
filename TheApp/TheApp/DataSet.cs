@@ -1,15 +1,20 @@
-﻿namespace TheApp
+﻿using System.Collections.Generic;
+
+namespace TheApp
 {
+    public class Picture {
+        public string Orientation;
+        public int TagNumber;
+        public HashSet<string> Tags;
+    }
+
     public class DataSet
     {
-        public int R;
-        public int C;
-        //minimum number of each ingredient in slice
-        public int L;
-        //maximum number of slice cells
-        public int H;
-        public int Hadjusted;
-
-        public string[] Data;
+        public DataSet()
+        {
+            Pictures = new List<Picture>();
+        }
+        public int RowNumber;
+        public List<Picture> Pictures;
     }
 }
