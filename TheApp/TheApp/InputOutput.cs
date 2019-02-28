@@ -27,6 +27,7 @@ namespace TheApp
                     var info = sr.ReadLine().Trim().Split(' ');
                     var picture = new Picture();
                     picture.Id = i;
+                    picture.Used = false;
                     picture.Orientation = info[0];
                     picture.TagNumber = int.Parse(info[1]);
                     picture.Tags = new HashSet<string>(info.Skip(2).ToArray());
@@ -46,6 +47,7 @@ namespace TheApp
 
             public Slide(Picture pic1)
             {
+                Pic1 = pic1;
                Tags = new HashSet<string>();
                Tags.UnionWith(pic1.Tags);
             }

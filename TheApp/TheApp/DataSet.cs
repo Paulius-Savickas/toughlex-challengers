@@ -8,6 +8,7 @@ namespace TheApp
         public string Orientation;
         public int TagNumber;
         public HashSet<string> Tags;
+        public bool Used;
     }
 
     public class DataSet
