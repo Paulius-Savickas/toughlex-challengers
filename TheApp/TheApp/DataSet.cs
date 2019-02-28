@@ -2,9 +2,7 @@
 
 namespace TheApp
 {
-    public class Slide
-    {
-        public int Id;
+    public class Picture {
         public string Orientation;
         public int TagNumber;
         public HashSet<string> Tags;
@@ -14,9 +12,9 @@ namespace TheApp
     {
         public DataSet()
         {
-            Slides = new List<Slide>();
+            Pictures = new List<Picture>();
         }
         public int RowNumber;
-        public List<Slide> Slides;
+        public List<Picture> Pictures;
     }
 }
