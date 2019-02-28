@@ -22,6 +22,7 @@ namespace TheApp
 
                     var info = sr.ReadLine().Trim().Split(' ');
                     var picture = new Picture();
+                    picture.Id = i;
                     picture.Orientation = info[0];
                     picture.TagNumber = int.Parse(info[1]);
                     picture.Tags = new HashSet<string>(info.Skip(2).ToArray());
@@ -32,32 +33,34 @@ namespace TheApp
             }
         }
 
-        public class CoordinatesSet
+        public class Slide
         {
-            public int r1, c1, r2, c2;
+            public Picture Picture1;
+            public Picture Picture2;
 
-            public CoordinatesSet(int r1, int c1, int r2, int c2)
+            public override string ToString()
             {
-                this.r1 = r1;
-                this.c1 = c1;
-                this.r2 = r2;
-                this.c2 = c2;
+                return $"{Picture1.Id}";
             }
         }
 
         public class ResultSet
         {
-            public List<CoordinatesSet> Results;
+            public ResultSet()
+            {
+                SlideShow = new List<Slide>();
+            }
+            public List<Slide> SlideShow;
         }
 
         public static void OutputData(string filename, ResultSet results)
         {
             using (var outputFile = new StreamWriter(filename))
             {
-                outputFile.WriteLine(results.Results.Count);
-                foreach (var coordinatesSet in results.Results)
+                outputFile.WriteLine(results.SlideShow.Count);
+                foreach (var slide in results.SlideShow)
                 {
-                    outputFile.WriteLine($"{coordinatesSet.r1} {coordinatesSet.c1} {coordinatesSet.r2} {coordinatesSet.c2}");
+                    outputFile.WriteLine(slide);
                 }
             }
         }

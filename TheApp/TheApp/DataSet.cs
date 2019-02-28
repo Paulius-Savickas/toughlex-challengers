@@ -2,7 +2,9 @@
 
 namespace TheApp
 {
-    public class Picture {
+    public class Picture
+    {
+        public int Id;
         public string Orientation;
         public int TagNumber;
         public HashSet<string> Tags;
