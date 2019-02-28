@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// HorizontalSet.GetVSlidesList(dataSet.Pictures.ToArray().ToList()); 
+/// </summary>
+
 namespace TheApp
 {
     class HorizontalSet
