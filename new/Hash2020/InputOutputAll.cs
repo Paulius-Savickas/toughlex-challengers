@@ -11,8 +11,13 @@ namespace Hash2020
         {
             using (var file = new StreamWriter(path, false))
             {
-                file.WriteLine(output.TypeCount);
-                file.WriteLine(string.Join(" ", output.OrderingPizzas));
+                file.WriteLine(output.Libraries.Count);
+
+                output.Libraries.ForEach(lib =>
+                {
+                    file.WriteLine($"{lib.Index} {lib.BooksToTake}");
+                    file.WriteLine(string.Join(" ", lib.Books.Take(lib.BooksToTake).Select(a => a.Item1)));
+                });
             }
         }
 
@@ -30,18 +35,20 @@ namespace Hash2020
                 Scores = secondLine
             };
 
-            for (int i = 2; i < lines.Count; i = i + 2)
+            lines = lines.Skip(2).ToList();
+
+            for (int i = 0; i < input.LibraryCount; i++)
             {
-                var libFirstLine = lines[i].Split(' ').Select(int.Parse).ToList();
-                var libSecondLine = lines[i + 1].Split(' ').Select(int.Parse).ToList();
+                var libFirstLine = lines[i * 2].Split(' ').Select(int.Parse).ToList();
+                var libSecondLine = lines[i * 2 + 1].Split(' ').Select(int.Parse).ToList();
 
                 input.Libraries.Add(new Library
                 {
-                    Index = i - 2,
+                    Index = i,
                     BookCount = libFirstLine[0],
                     SignupProcessDays = libFirstLine[1],
-                    ShipBooksPerDay = libSecondLine[2],
-                    Books = libSecondLine.Select(a => new Tuple<int, int>(a, secondLine[a])).ToList()
+                    ShipBooksPerDay = libFirstLine[2],
+                    Books = libSecondLine.Select(a => new Tuple<int, int>(a, secondLine[a])).OrderByDescending(a => a.Item2).ToList()
                 });
             }
 
@@ -60,9 +67,9 @@ namespace Hash2020
 
         public class Output
         {
-            public int TypeCount => OrderingPizzas.Count;
-            public List<int> OrderingPizzas { get; set; } = new List<int>();
-            public int Sum { get; set; }
+            public int LibCount { get; set; }
+
+            public List<Library> Libraries { get; set; } = new List<Library>();
         }
 
         public class Library
@@ -71,17 +78,35 @@ namespace Hash2020
             public int BookCount { get; set; }
             public int SignupProcessDays { get; set; }
             public int ShipBooksPerDay { get; set; }
+            public int BooksToTake { get;set; }
             public List<Tuple<int,int>> Books { get; set; } = new List<Tuple<int, int>>();
 
-            public int GetScore(int days, Input input)
-            {
-                Books = Books.OrderBy(a => a.Item2).ToList();
-                int daysToProcess = days - SignupProcessDays;
-                if (Books.Count / ShipBooksPerDay < daysToProcess)
-                {
+            public int Score { get; set; }
 
+            public int GetScore(int days)
+            {
+                int daysToProcess = days - SignupProcessDays;
+
+                if (ShipBooksPerDay == 0)
+                {
+                    Score = 0;
+                    return Score;
                 }
-                return 0;
+
+                int libShipDays = Books.Count / ShipBooksPerDay;
+                
+                if (libShipDays <= daysToProcess)
+                {
+                    Score =  Books.Select(a => a.Item2).Sum();
+                    BooksToTake = Books.Count;
+                }
+                else
+                {
+                    BooksToTake = ShipBooksPerDay * daysToProcess;
+                    Score =  Books.Take(BooksToTake).Select(a => a.Item2).Sum();
+                }
+
+                return Score;
             }
         }
     }
