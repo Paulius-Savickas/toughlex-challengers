@@ -81,9 +81,9 @@ namespace Hash2020
             public int BooksToTake { get;set; }
             public List<Tuple<int,int>> Books { get; set; } = new List<Tuple<int, int>>();
 
-            public int Score { get; set; }
+            public double Score { get; set; }
 
-            public int GetScore(int days)
+            public double GetScore(int days)
             {
                 int daysToProcess = days - SignupProcessDays;
 
@@ -93,7 +93,7 @@ namespace Hash2020
                     return Score;
                 }
 
-                int libShipDays = Books.Count / ShipBooksPerDay;
+                int libShipDays = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Books.Count) / Convert.ToDouble(ShipBooksPerDay)));
                 
                 if (libShipDays <= daysToProcess)
                 {
@@ -105,6 +105,8 @@ namespace Hash2020
                     BooksToTake = ShipBooksPerDay * daysToProcess;
                     Score =  Books.Take(BooksToTake).Select(a => a.Item2).Sum();
                 }
+
+                Score = Score / days * daysToProcess;
 
                 return Score;
             }

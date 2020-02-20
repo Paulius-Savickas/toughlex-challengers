@@ -14,6 +14,7 @@ namespace Hash2020
             //var file = "c_incunabula.txt";
             var file = "d_tough_choices.txt";
             //var file = "e_so_many_books.txt";
+            //var file = "f_libraries_of_the_world.txt";
 
             var projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent?.Parent?.FullName;
             var input = InputOutputAll.ReadData($"{projectDirectory}/Hash2020/Data/{file}");
