@@ -17,25 +17,27 @@ namespace Hash2020
 
         public static Input ReadData(string file)
         {
-            var lines = File.ReadAllLines(file);
+            var lines = File.ReadAllLines(file).Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
             var firstLine = lines[0].Split(' ').Select(int.Parse).ToList();
             var secondLine = lines[1].Split(' ').Select(int.Parse).ToList();
 
             var input = new Input
             {
-                Max = firstLine[0],
-                TypeCount = firstLine[1],
-                SlicesPerType = secondLine
+                BookCount = firstLine[0],
+                LibraryCount = firstLine[1],
+                DayCount = firstLine[2],
+
+                //SlicesPerType = secondLine
             };
             return input;
         }
 
         public class Input
         {
-            public int Max { get; set; }
-            public int TypeCount { get; set; }
-
-            public List<int> SlicesPerType { get; set; }
+           public int BookCount { get; set; }
+           public int LibraryCount { get; set; }
+           public int DayCount { get; set; }
+           public List<int> Scores { get; set; }
         }
 
         public class Output
