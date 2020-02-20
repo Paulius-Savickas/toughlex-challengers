@@ -71,6 +71,12 @@ namespace Hash2020
             public int SignupProcessDays { get; set; }
             public int ShipBooksPerDay { get; set; }
             public List<int> Books { get; set; } = new List<int>();
+
+            public int GetScore(int days)
+            {
+                //todo
+                return 0;
+            }
         }
     }
 }
