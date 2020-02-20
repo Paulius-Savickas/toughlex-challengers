@@ -26,9 +26,24 @@ namespace Hash2020
                 BookCount = firstLine[0],
                 LibraryCount = firstLine[1],
                 DayCount = firstLine[2],
-
-                //SlicesPerType = secondLine
+                Scores = secondLine
             };
+
+            for (int i = 2; i < lines.Count; i = i + 2)
+            {
+                var libFirstLine = lines[i].Split(' ').Select(int.Parse).ToList();
+                var libSecondLine = lines[i + 1].Split(' ').Select(int.Parse).ToList();
+
+                input.Libraries.Add(new Library
+                {
+                    Index = i - 2,
+                    BookCount = libFirstLine[0],
+                    SignupProcessDays = libFirstLine[1],
+                    ShipBooksPerDay = libSecondLine[2],
+                    Books = libSecondLine
+                });
+            }
+
             return input;
         }
 
@@ -37,7 +52,9 @@ namespace Hash2020
            public int BookCount { get; set; }
            public int LibraryCount { get; set; }
            public int DayCount { get; set; }
-           public List<int> Scores { get; set; }
+           public List<int> Scores { get; set; } = new List<int>();
+
+           public List<Library> Libraries { get; set; } = new List<Library>();
         }
 
         public class Output
@@ -45,6 +62,15 @@ namespace Hash2020
             public int TypeCount => OrderingPizzas.Count;
             public List<int> OrderingPizzas { get; set; } = new List<int>();
             public int Sum { get; set; }
+        }
+
+        public class Library
+        {
+            public int Index { get; set; }
+            public int BookCount { get; set; }
+            public int SignupProcessDays { get; set; }
+            public int ShipBooksPerDay { get; set; }
+            public List<int> Books { get; set; } = new List<int>();
         }
     }
 }
