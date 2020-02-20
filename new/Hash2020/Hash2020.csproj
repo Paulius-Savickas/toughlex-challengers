@@ -50,8 +50,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Content Include="Data\a_example.txt" />
+    <Content Include="Data\b_read_on.txt" />
+    <Content Include="Data\c_incunabula.txt" />
+    <Content Include="Data\d_tough_choices.txt" />
+    <Content Include="Data\e_so_many_books.txt" />
+    <Content Include="Data\f_libraries_of_the_world.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
