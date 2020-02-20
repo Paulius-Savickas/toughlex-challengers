@@ -106,7 +106,7 @@ namespace Hash2020
                     Score =  Books.Take(BooksToTake).Select(a => a.Item2).Sum();
                 }
 
-                Score = Score / days * daysToProcess;
+                Score = Score * ((double)daysToProcess/days) * ((double)daysToProcess / days);
 
                 return Score;
             }
