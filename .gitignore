@@ -260,3 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 TheApp/TheApp/TheApp.zip
+new/Hash2020.7z
+new/Hash2020/Result/a_example.txt
+new/Hash2020/Result/b_read_on.txt
+new/Hash2020/Result/
