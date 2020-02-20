@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Hash2020
 {
-    public class InputOutputAll
+    public static class InputOutputAll
     {
-        private static void WriteData(Output output, string path)
+        public static void WriteData(Output output, string path)
         {
             using (var file = new StreamWriter(path, false))
             {
@@ -15,7 +15,7 @@ namespace Hash2020
             }
         }
 
-        private  Input ReadData(string file)
+        public static Input ReadData(string file)
         {
             var lines = File.ReadAllLines(file);
             var firstLine = lines[0].Split(' ').Select(int.Parse).ToList();
