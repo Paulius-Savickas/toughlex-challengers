@@ -21,6 +21,7 @@ namespace Hash2020
             while (input.DayCount > 0)//kol yra dienu like
             {
                 //reikia pereiti per visus libraries ir pasigrazinti su geriausiu score, paduodam likusias dienas
+                input.Libraries.
                 //library pridedam prie rezultatu, kuriuos piesim
                 //istrinam librario knygas ir kitu libraries
                 //istrinam library is listo

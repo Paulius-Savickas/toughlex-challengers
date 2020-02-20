@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -40,7 +41,7 @@ namespace Hash2020
                     BookCount = libFirstLine[0],
                     SignupProcessDays = libFirstLine[1],
                     ShipBooksPerDay = libSecondLine[2],
-                    Books = libSecondLine
+                    Books = libSecondLine.Select(a => new Tuple<int, int>(a, secondLine[a])).ToList()
                 });
             }
 
@@ -70,11 +71,16 @@ namespace Hash2020
             public int BookCount { get; set; }
             public int SignupProcessDays { get; set; }
             public int ShipBooksPerDay { get; set; }
-            public List<int> Books { get; set; } = new List<int>();
+            public List<Tuple<int,int>> Books { get; set; } = new List<Tuple<int, int>>();
 
-            public int GetScore(int days)
+            public int GetScore(int days, Input input)
             {
-                //todo
+                Books = Books.OrderBy(a => a.Item2).ToList();
+                int daysToProcess = days - SignupProcessDays;
+                if (Books.Count / ShipBooksPerDay < daysToProcess)
+                {
+
+                }
                 return 0;
             }
         }
